@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Imóveis - AirBnTruta</title>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+  </head>
+  <body>
+    <div th:insert="~{frags/menu :: hospedeiro}"></div>
+
+    <div class="container container-pastel mt-4">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>🏡 Meus Esconderijos Cadastrados</h2>
+            <a href="/hospedagem/new" class="btn btn-pastel-success">➕ Nova Hospedagem</a>
+        </div>
+
+        <div th:if="${hospedagens.size() == 0}" class="alert alert-pastel-info">
+             📝 Você ainda não possui hospedagens cadastradas!
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="hospedagem : ${hospedagens}" th:object="${hospedagem}">
+              
+              <div class="card card-pastel h-100" 
+                   th:classappend="*{temInteresse and fugitivo == null} ? 'card-interesse' : ''">
+                
+                <div class="card-body">
+                  
+                  <div th:if="*{temInteresse and fugitivo == null}" class="alert alert-pastel-warning py-2 text-center mb-3">
+                     <strong>✨ Tem Proposta!</strong>
+                  </div>
+
+                  <div class="mb-3">
+                      <span th:if="*{fugitivo != null}" class="badge-pastel-danger">🚫 OCUPADO</span>
+                      <span th:if="*{fugitivo == null}" class="badge-pastel-success">✅ LIVRE</span>
+                  </div>
+
+                  <h5 class="card-title" th:text="*{descricaoCurta}"></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Informações da Diária</h6>
+                  
+                  <div>
+                    <p class="card-text">
+                        <strong>Local: </strong> <span th:text="*{localizacao}"></span>
+                    </p>
+                    <p class="card-text" th:text="'Valor da diária: R$ '+*{diaria}"></p>
+                    <p class="card-text text-muted small" th:text="*{descricaoLonga}"></p>
+                  </div>
+                </div>
+
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
+                    
+                    <a th:href="@{/hospedeiro/viewhospedagem/{id}(id=*{codigo})}" class="btn btn-info btn-sm">Detalhe</a>
+                    pastel-info btn-sm">👁️ Detalhe</a>
+                    
+                    <a th:if="*{temInteresse and fugitivo == null}" 
+                       th:href="@{/hospedeiro/interesses/{id}(id=*{codigo})}" 
+                       class="btn btn-pastel-warning btn-sm fw-bold">
+                       📋 Ver Propostas 
+                    </a>
+
+                    <button th:if="*{!temInteresse and fugitivo == null}" class="btn btn-pastel-info btn-sm" disabled style="opacity: 0.5;">
+                        📭 Sem propostas
+                    </button>
+
+                    <button th:if="*{fugitivo != null}" class="btn btn-pastel-danger btn-sm" disabled style="opacity: 0.5;">
+                        🔒utton>
+
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

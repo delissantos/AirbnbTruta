@@ -1,0 +1,63 @@
+CREATE DATABASE airbntruta;
+
+use airbntruta;
+
+
+CREATE TABLE fugitivo (
+codigo INT PRIMARY KEY auto_increment,
+nome VARCHAR(100) NOT NULL,
+vulgo VARCHAR(100),
+especialidade VARCHAR(150),
+faccao VARCHAR(100),
+descricao blob,
+senha VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE hospedeiro (
+codigo INT AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+vulgo VARCHAR(100),
+contato VARCHAR(150),
+senha VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE servico (
+codigo INT AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(25) NOT NULL,
+tipo VARCHAR(20),
+descricao blob
+);
+
+CREATE TABLE hospedagem (
+codigo INT AUTO_INCREMENT PRIMARY KEY,
+descricao_curta VARCHAR(200) NOT NULL,
+descricao_longa blob,
+localizacao VARCHAR(200),
+diaria DOUBLE NOT NULL,
+inicio DATE NOT NULL,
+fim DATE,
+hospedeiro_id INT NOT NULL,
+fugitivo_id INT,
+CONSTRAINT fk_hospedagem_hospedeiro
+FOREIGN KEY (hospedeiro_id) REFERENCES hospedeiro(codigo) ON DELETE CASCADE,
+CONSTRAINT fk_hospedagem_fugitivo FOREIGN KEY (fugitivo_id) REFERENCES fugitivo(codigo) ON DELETE CASCADE
+);
+
+CREATE TABLE hospedagem_servico (
+hospedagem_id INT NOT NULL,
+servico_id INT NOT NULL,
+PRIMARY KEY (hospedagem_id, servico_id),
+CONSTRAINT fk_hs_hospedagem FOREIGN KEY (hospedagem_id) REFERENCES hospedagem(codigo)ON DELETE CASCADE,
+CONSTRAINT fk_hs_servico FOREIGN KEY (servico_id) REFERENCES servico(codigo)ON DELETE CASCADE
+);
+
+CREATE TABLE interesse (
+codigo INT AUTO_INCREMENT PRIMARY KEY,
+realizado BIGINT NOT NULL,
+proposta VARCHAR(255),
+tempo_permanencia INT,
+fugitivo_id INT NOT NULL,
+hospedagem_id INT NOT NULL,
+CONSTRAINT fk_interesse_fugitivo FOREIGN KEY (fugitivo_id) REFERENCES fugitivo(codigo) ON DELETE CASCADE,
+CONSTRAINT fk_interesse_hospedagem FOREIGN KEY (hospedagem_id) REFERENCES hospedagem(codigo) ON DELETE CASCADE
+);

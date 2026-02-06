@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Propostas</title>
+    <div th:insert="~{frags/misc :: bootstrap}"></div>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+</head>
+<body>
+    <nav class="navbar navbar-pastel mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/hospedeiro">⬅️ Voltar para Home</a>
+        </div>
+    </nav>
+
+    <div class="container container-pastel">
+        <div class="card card-pastel mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">📋 Propostas para: <span th:text="${hospedagem.descricaoCurta}"></span></h4>
+            </div>
+            <div class="card-body">
+                <p><strong>📍 Local:</strong> <span th:text="${hospedagem.localizacao}"></span></p>
+                <p><strong>💰 Valor Original: R$</strong> <span th:text="${hospedagem.diaria}"></span></p>
+            </div>
+        </div>
+
+        <h3 style="color: #6B6B6B;">👥 Candidatos Interessados</h3>
+        
+        <table class="table table-pastel mt-3">
+            <thead>
+                <tr>
+                    <th>👤 Vulgo do Fugitivo</th>
+                    <th>🎯 Especialidade</th>
+                    <th>💸 Proposta Oferecida</th>
+                    <th>⏰ Tempo (Dias)</th>
+                    <th>⚙️ Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${interesses}">
+                    <td th:text="${i.interessado.vulgo}"></td>
+                    <td th:text="${i.interessado.especialidade}"></td>
+                    <td><span class="badge-pastel-success" th:text="${i.proposta}"></span></td>
+                    <td th:text="${i.tempoPermanencia}"></td>
+                    <td>
+                        <form action="/hospedeiro/aceitar" method="post" onsubmit="return confirm('✅ Tem certeza? Isso vai rejeitar as outras propostas.')">
+                            <input type="hidden" name="hospedagemId" th:value="${hospedagem.codigo}">
+                            <input type="hidden" name="fugitivoId" th:value="${i.interessado.codigo}">
+                            <button class="btn btn-pastel-success btn-sm">✔️ Aceitar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${interesses.empty}" class="alert alert-pastel-info">
+            📬 Nenhuma proposta encontrada para este esconderijo.
+        </div>
+    </div>
+</body>
+</html>

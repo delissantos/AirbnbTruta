@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirBnTruta - Bem Vindo</title>
+    <div th:insert="~{frags/misc :: bootstrap}"></div>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+</head>
+<body>
+    
+    <div class="container" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+        <div class="text-center mb-5">
+            <h1 style="font-size: 4rem; background: linear-gradient(135deg, #E6D9F5, #FFD6E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🏠 AirBnTruta</h1>
+            <p class="lead" style="color: #6B6B6B; font-size: 1.5rem;">O marketplace de esconderijos mais seguro (ou quase) do Brasil ✨</p>
+            <hr style="border: 2px solid #E6D9F5; width: 50%; margin: 2rem auto;">
+            <p style="color: #6B6B6B; font-size: 1.2rem;">Escolha seu perfil para começar:</p>
+        </div>
+
+        <div class="row justify-content-center align-items-stretch g-4">
+            
+            <div class="col-md-5">
+                <div class="card card-pastel h-100" style="cursor: pointer; border: 3px solid #FFD6E8;">
+                    <div class="card-header" style="background: linear-gradient(135deg, #FFD6E8, #FFE5D9); border: none;">
+                        <h3>Sou Fugitivo</h3>
+                    </div>
+                    <div class="card-body text-center p-5">
+                        <p class="card-text mb-4">Encontre esconderijos discretos e baratos.</p>
+                        <a href="/fugitivo" class="btn btn-outline-danger btn-lg w-100 stretched-link">Procurar Esconderijo</a>
+                        <h3 class="text-center" style="color: #4A4A4A;">🏃‍♂️ Sou Fugitivo</h3>
+                    </div>
+                    <div class="card-body text-center p-5">
+                        <p class="card-text mb-4" style="color: #6B6B6B;">Procurando um lugar seguro pra se esconder? 🕵️</p>
+                        <a href="/fugitivo" class="btn btn-pastel-danger btn-lg w-100">🔍 Buscar Esconderijo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card card-pastel h-100" style="cursor: pointer; border: 3px solid #D4F4DD;">
+                    <div class="card-header" style="background: linear-gradient(135deg, #D4F4DD, #D6F5F5); border: none;">
+                        <h3 class="text-center" style="color: #4A4A4A;">🏡 Sou Hospedeiro</h3>
+                    </div>
+                    <div class="card-body text-center p-5">
+                        <p class="card-text mb-4" style="color: #6B6B6B;">Oferte seu apê para quem precisa se esconder! 🤝</p>
+                        <a href="/hospedeiro" class="btn btn-pastel-success btn-lg w-100">🏠 Anunciar Imóvel</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5" style="color: #6B6B6B;">
+            <small>🔧 Administração: <a href="/servico" style="color: #E6D9F5; font-weight: 600; text-decoration: none;">Gerenciar Serviços</a></small>
+        </div>
+
+    </div>
+
+</body>
+</html>

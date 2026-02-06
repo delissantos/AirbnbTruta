@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Esconderijos Disponíveis</title>
+    <th:block th:insert="~{frags/bootstrap-inline :: bootstrap}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+</head>
+<body>
+    <nav class="navbar navbar-pastel mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">🏠 AirBnTruta - Área do Fugitivo</a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3" th:text="'👋 Olá, ' + ${fugitivo.vulgo}">Olá, usuário</span>
+                <a href="/fugitivo/logout" class="btn btn-pastel-danger btn-sm">Sair</a>
+            </div>
+        </div> 
+    </nav>
+
+    <div class="container container-pastel">
+        <h2 class="mb-4">✨ Esconderijos Disponíveis</h2>
+
+        <div class="card card-pastel mb-4 p-3">
+            <form action="/fugitivo" method="post" class="row g-3 align-items-end form-pastel">
+                <div class="col-md-4">
+                    <label class="form-label">Localidade (bairro, cidade...)</label>
+                    <input type="text" name="loc" class="form-control" placeholder="Ex: Morro do Dendê"/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Preço Máximo (R$)</label>
+                    <input type="number" name="maxPrice" step="0.01" class="form-control" placeholder="0,00"/>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-pastel-primary w-100">🔍 Filtrar</button>
+                </div>
+                <div class="col-md-2">
+                    <a href="/fugitivo" class="btn btn-pastel-info w-100">🔄 Limpar</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="h : ${hospedagens}">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${h.descricaoCurta}">Título</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${h.localizacao}">Local</h6>
+                        <p class="card-text" th:text="${h.descricaoLonga}">Descrição</p>
+                        <p class="card-text"><strong>Diária: R$ </strong><span th:text="${h.diaria}">0.00</span></p>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item bg-light" th:each="s : ${h.servicos}" th:text="${s.nome}">Serviço</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal"
+                        data-bs-target="#modalInteresse" th:onclick="'setHospedagemId(' + ${h.codigo} + ')'">
+                        Demonstrar Interesse
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-12" th:if="${hospedagens == null or hospedagens.empty}">
+                <div class="alert alert-warning">
+                    Nenhum Esconderijo disponível no momento.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalInteresse" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Fazer Proposta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/fugitivo/interesse/new" method="post">
+                        <input type="hidden" id="hospIdHidden" name="hospedagemId"/>
+                        <div class="mb-3">
+                            <label>Sua Proposta (R$ ou Troca)</label>
+                            <input type="text" name="proposta" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Tempo de Permanência (dias)</label>
+                            <input type="number" name="tempoPermanencia" class="form-control" required/>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Enviar Proposta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setHospedagemId(id) {
+            document.getElementById('hospIdHidden').value = id;
+        }
+    </script>
+</body>
+</html>

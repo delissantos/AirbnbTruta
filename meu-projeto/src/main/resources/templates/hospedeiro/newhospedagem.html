@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Hospedagem</title>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+  </head>
+  <body>
+    <div th:insert="~{frags/menu :: hospedeiro}"></div>
+
+    <div class="container container-pastel mt-4">
+      <h2 class="mb-4">➕ Nova Hospedagem</h2>
+      <form
+        method="post"
+        action="/hospedagem/new"
+        class="card card-pastel form-pastel"
+        th:object="${hospedagem}"
+      >
+        <div class="card-body">
+          <div class="mb-4">
+            <label class="form-label" for="txtdc">📝 Descrição Curta</label>
+            <input
+              type="text"
+              th:field="*{descricaoCurta}"
+              id="txtdc"
+              class="form-control"
+              placeholder="Título do esconderijo"
+            />
+          </div>
+
+        <div data-mdb-input-init class="form-outline mb-4">
+          <label class="form-label" for="txtdl">Descrição Longa</label>
+          <textarea
+          <div class="mb-4">
+            <label class="form-label" for="txtdl">📝 Descrição Longa</label>
+            <textarea
+              th:field="*{descricaoLonga}"
+              id="txtdl"
+              class="form-control"
+              rows="4"
+              placeholder="Descreva os detalhes do esconderijo"
+            ></textarea>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+              <label class="form-label" for="txtloc">📍 Localização</label>
+              <input
+                type="text"
+                th:field="*{localizacao}"
+                id="txtloc"
+                class="form-control"
+                placeholder="Cidade, bairro..."
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label" for="txtdiaria">💰 Valor da Diária</label>
+              <input
+                type="number"
+                th:field="*{diaria}"
+                id="txtdiaria"
+                class="form-control"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h5 style="color: #6B6B6B;">✨ Serviços Disponíveis</h5>
+            <table class="table table-pastel">
+              <thead>
+                <tr>
+                  <th style="width: 10%;">Selecionar</th>
+                  <th>Serviço</th>
+                  <th>Tipo</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="s : ${servicos}">
+                  <td><input
+                    type="checkbox"
+                    name="servs"
+                    th:value="${s.codigo}"
+                    class="form-check-input"
+                  />
+                  </td>
+                  <td th:text="${s.nome}"></td>
+                  <td th:text="${s.tipo}"></td>
+                  <td th:text="${s.descricao}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <button class="btn btn-pastel-success w-100">
+            ✅ Salvar Hospedagem
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

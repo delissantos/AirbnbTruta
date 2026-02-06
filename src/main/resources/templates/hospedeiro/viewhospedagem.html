@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhe da Hospedagem</title>
+  <div th:insert="~{frags/misc :: bootstrap}"></div>
+</head>
+<body>
+  <div th:insert="~{frags/menu :: hospedeiro}"></div>
+
+  <div class="container mt-4">
+    <a href="/hospedeiro" class="btn btn-secondary mb-3">Voltar</a>
+
+    <h3 th:text="${hospedagem.descricaoCurta}">Descrição Curta</h3>
+    <p><strong>Local:</strong> <span th:text="${hospedagem.localizacao}">Local</span></p>
+    <p><strong>Diária:</strong> R$ <span th:text="${hospedagem.diaria}">0.00</span></p>
+    <p th:text="${hospedagem.descricaoLonga}">Descrição longa</p>
+
+    <h5>Serviços</h5>
+    <ul>
+      <li th:each="s : ${hospedagem.servicos}" th:text="${s.nome}">Serviço</li>
+    </ul>
+
+    <div th:if="${hospedagem.fugitivo != null}" class="alert alert-danger">
+      Ocupado por: <span th:text="${hospedagem.fugitivo.vulgo}">vulgo</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Interesses</title>
+    <div th:insert="~{frags/misc :: bootstrap}"></div>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/fugitivo">Voltar para Busca</a>
+            <span class="text-white">Meus Interesses Ativos</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h3>Propostas Enviadas</h3>
+        
+        <table class="table table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hospedagem</th>
+                    <th>Local</th>
+                    <th>Minha Proposta</th>
+                    <th>Dias</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${interesses}">
+                    <td th:text="${i.interesse.descricaoCurta}"></td>
+                    <td th:text="${i.interesse.localizacao}"></td>
+                    <td th:text="${i.proposta}"></td>
+                    <td th:text="${i.tempoPermanencia}"></td>
+                    <td><span class="badge bg-warning text-dark">Aguardando</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${interesses.empty}" class="alert alert-info">
+            Você não demonstrou interesse em nenhum esconderijo ainda.
+        </div>
+    </div>
+</body>
+</html>

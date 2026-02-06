@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área do Fugitivo</title>
+    <th:block th:insert="~{frags/bootstrap-inline :: bootstrap}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+  </head>
+  <body>
+    <div class="d-flex flex-column justify-content-center align-content-center align-items-center" style="min-height: 100vh;">
+      <div class="text-center mb-4">
+        <h1 style="font-size: 3rem; background: linear-gradient(135deg, #E6D9F5, #FFD6E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🏃‍♂️ AirBnTruta</h1>
+        <p class="h4" style="color: #6B6B6B;">Bem-vindo! Área do Fugitivo</p>
+      </div>
+      <form method="post" action="/fugitivo/login"
+        class="card card-pastel form-pastel"
+        style="width: 400px; max-width: 90%;">
+        <div class="card-body">
+          <!-- Vulgo input -->
+          <div class="mb-4">
+            <label class="form-label" for="formVulgo">👤 Vulgo</label>
+            <input type="text" name="vulgo" id="formVulgo" class="form-control" placeholder="Digite seu vulgo" required />
+          </div>
+
+          <!-- Senha input -->
+          <div class="mb-4">
+            <label class="form-label" for="formSenha">🔒 Senha</label>
+            <input type="password" name="senha" id="formSenha" class="form-control" placeholder="Digite sua senha" required />
+          </div>
+
+          <!-- Submit button -->
+          <button class="btn btn-pastel-primary w-100 mb-3">
+            🚀 Entrar
+          </button>
+
+          <div class="text-center">
+            <div th:if="${msg}" class="alert alert-pastel-warning mb-3" th:text="${msg}"></div>
+            <p class="mt-3" style="color: #6B6B6B;">Ainda não tem conta? 
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalCadastro" style="color: #E6D9F5; font-weight: 600;">Cadastre-se aqui</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal fade text-dark" id="modalCadastro" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Registro de Fugitivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div th:insert="~{frags/forms :: generic(${@formHandler}, 'Post', '/fugitivo/save', ${fugitivo})}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>  

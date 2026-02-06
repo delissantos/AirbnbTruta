@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar - Hospedeiro</title>
+    <div th:insert="~{frags/misc :: bootstrap}"></div>
+    <link rel="stylesheet" th:href="@{/css/pastel-theme.css}">
+  </head>
+  <body>
+    <div class="d-flex flex-column justify-content-center align-content-center align-items-center" style="min-height: 100vh;">
+      <div class="text-center mb-4">
+        <h1 style="font-size: 3rem; background: linear-gradient(135deg, #E6D9F5, #FFD6E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🏡 AirBnTruta</h1>
+        <p class="h4" style="color: #6B6B6B;">Bem-vindo, Hospedeiro!</p>
+      </div>
+      <form method="post" action="/hospedeiro/login"
+        class="card card-pastel form-pastel"
+        style="width: 400px; max-width: 90%;">
+        <div class="card-body">
+          <!-- Vulgo input -->
+          <div class="mb-4">
+            <label class="form-label" for="form2Example1">👤 Vulgo</label>
+            <input type="text" name="vulgo" id="form2Example1" class="form-control" placeholder="Digite seu vulgo" required />
+          </div>
+
+          <!-- Password input -->
+          <div class="mb-4">
+            <label class="form-label" for="form2Example2">🔒 Senha</label>
+            <input type="password" name="senha" id="form2Example2" class="form-control" placeholder="Digite sua senha" required />
+          </div>
+
+          <!-- Submit button -->
+          <button class="btn btn-pastel-primary w-100 mb-3">
+          Sign in
+        </button>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Not a member? <a href="#!" data-bs-toggle="modal" data-bs-target="#modalcadastro">Register</a></p>
+          <p>or sign up with:</p>
+          <button
+            type="button"
+            data-mdb-button-init
+            data-mdb-ripple-init
+            class="btn btn-link btn-floating mx-1"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </button>
+
+          <button
+            type="button"
+            data-mdb-button-init
+            data-mdb-ripple-init
+            class="btn btn-link btn-floating mx-1"
+          >
+            <i class="fab fa-google"></i>
+          </button>
+
+          <button
+            type="button"
+            data-mdb-button-init
+            data-mdb-ripple-init
+            class="btn btn-link btn-floating mx-1"
+          >
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button
+            type="button"
+            data-mdb-button-init
+            data-mdb-ripple-init
+            class="btn btn-link btn-floating mx-1"
+          >
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+      </form>
+      <small th:text="${msg}"></small>
+    </div>
+
+    <div class="modal fade" id="modalcadastro" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!--<div
+              th:if="${servico.codigo == 0}"
+              th:insert="~{frags/forms :: servico('new')}"
+            ></div>
+            <div
+              th:unless="${servico.codigo == 0}"
+              th:insert="~{frags/forms :: servico('update')}"
+            ></div>-->
+            <div
+              th:insert="~{frags/forms :: generic(${@formHandler},'Post','/hospedeiro/save',${hospedeiro})}"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
